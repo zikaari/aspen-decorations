@@ -1,5 +1,5 @@
+import { FileOrDir } from 'aspen-core'
 import { DisposablesComposite } from 'notificar'
-import { FileOrDir } from 'aspen-tree-model'
 import { Decoration } from './Decoration'
 import { TargetMatchMode } from './types'
 

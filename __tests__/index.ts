@@ -1,4 +1,4 @@
-import { Directory, FileType, IBasicFileSystemHost, Root } from 'aspen-tree-model'
+import { Directory, FileType, IBasicFileSystemHost, Root } from 'aspen-core'
 import { ClasslistComposite, Decoration, DecorationsManager, TargetMatchMode } from '../src'
 
 const sampleTree = {

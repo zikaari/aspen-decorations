@@ -1,5 +1,5 @@
+import { Directory, FileEntry } from 'aspen-core'
 import { IDisposable, Notificar } from 'notificar'
-import { Directory, FileEntry } from 'aspen-tree-model'
 import { DecorationEvent, TargetMatchMode } from './types'
 
 export class Decoration {

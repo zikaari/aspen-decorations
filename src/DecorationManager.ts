@@ -1,5 +1,5 @@
+import { Directory, FileEntry, FileType, Root } from 'aspen-core'
 import { DisposablesComposite, IDisposable } from 'notificar'
-import { Directory, FileEntry, FileType, Root } from 'aspen-tree-model'
 import { Decoration } from './Decoration'
 import { ClasslistComposite, DecorationComposite, DecorationCompositeType } from './DecorationComposite'
 
