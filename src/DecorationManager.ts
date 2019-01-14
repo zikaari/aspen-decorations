@@ -33,7 +33,11 @@ export class DecorationsManager implements IDisposable {
 	private disposed = false
 
 	constructor(root: Root) {
-		// Root is the root "anchor point"
+		// if the object is actually Root, but not of same version this condition will likely be true
+		if (!(root instanceof Root)) {
+			throw new TypeError('Unexpected object type. Expected `Root`. Make sure you are using the latest version of `aspen-decorations` to avoid conflicts')
+		}
+		// this will act as "seed" (base) for rest of the decorations to come
 		this.decorationsMeta.set(root, {
 			applicable: new DecorationComposite(root, DecorationCompositeType.Applicable, null),
 			inheritable: new DecorationComposite(root, DecorationCompositeType.Inheritable, null),
