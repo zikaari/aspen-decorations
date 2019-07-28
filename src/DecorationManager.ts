@@ -82,6 +82,7 @@ export class DecorationsManager implements IDisposable {
 		for (const [target] of decoration.appliedTargets) {
 			this.targetDecoration(decoration, target)
 		}
+
 		for (const [target] of decoration.negatedTargets) {
 			this.negateDecoration(decoration, target)
 		}
@@ -103,7 +104,10 @@ export class DecorationsManager implements IDisposable {
 			const meta = this.decorationsMeta.get(target)
 			if (meta) {
 				meta.applicable.remove(decoration)
-				meta.inheritable.remove(decoration)
+
+				if (meta.inheritable) {
+					meta.inheritable.remove(decoration)
+				}
 			}
 		}
 
@@ -111,7 +115,10 @@ export class DecorationsManager implements IDisposable {
 			const meta = this.decorationsMeta.get(target)
 			if (meta) {
 				meta.applicable.unNegate(decoration)
-				meta.inheritable.unNegate(decoration)
+
+				if (meta.inheritable) {
+					meta.inheritable.unNegate(decoration)
+				}
 			}
 		}
 
