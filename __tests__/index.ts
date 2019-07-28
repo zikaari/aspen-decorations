@@ -26,6 +26,9 @@ const sampleTree = {
             },
         },
     },
+    statics: {
+        'image.png': '',
+    },
 }
 
 function findNode(path: string[], tree) {
@@ -59,6 +62,8 @@ const fileHandles = {
     '/app/src/components/Header/styles.sass': null,
     '/app/scripts/build': null,
     '/app/scripts/build/prod.ts': null,
+    '/statics': null,
+    '/statics/image.png': null
 }
 
 describe('Fixtures', async () => {
@@ -73,6 +78,7 @@ describe('Fixtures', async () => {
 describe('Decoration engine', () => {
     let testDeco01: Decoration
     let testDeco02: Decoration
+    let testDeco03: Decoration
     let decoManager: DecorationsManager
     it('create a new DecorationManager', () => { decoManager = new DecorationsManager(root) })
 
@@ -98,11 +104,11 @@ describe('Decoration engine', () => {
             .toBe(decoManager.getDecorationData(fileHandles['/app']).inheritable.renderedDecorations)
     })
 
-    it('create new Decoration with with initial classnames and no targets (`testDeco01`)', () => { testDeco01 = new Decoration('active', 'blue') })
+    it('create new Decoration with initial classnames and no targets (`testDeco01`)', () => { testDeco01 = new Decoration('active', 'blue') })
 
     it('registers Decoration `testDeco01`', () => { decoManager.addDecoration(testDeco01) })
 
-    it('create new Decoration with with no classname and initial targets (`testDeco02`) (preferably self)', async () => {
+    it('create new Decoration with no classname and initial targets (`testDeco02`) (preferably self)', async () => {
         testDeco02 = new Decoration()
         testDeco02.addTarget(fileHandles['/app/src'] as Directory, TargetMatchMode.Self)
         testDeco02.addTarget(fileHandles['/app/scripts/build'] as Directory, TargetMatchMode.Self)
@@ -200,4 +206,25 @@ describe('Decoration engine', () => {
             .toEqual(decoManager.getDecorations(fileHandles['/app/tests/index.ts']).classlist)
     })
 
+    it('create new Decoration with initial classnames and no targets (`testDeco03`)', () => { testDeco03 = new Decoration('green') })
+
+    it('registers Decoration `testDeco03`', () => { decoManager.addDecoration(testDeco03) })
+
+    it('add a target to `testDeco03`', () => {
+        testDeco03.addTarget(fileHandles['/statics/image.png'], TargetMatchMode.Self)
+    })
+
+    it('verify testDeco03 targets get the testDeco03 classnames', () => {
+        const testDeco03Classlist = [...testDeco03.cssClasslist]
+        expect(decoManager.getDecorations(fileHandles['/statics/image.png']).classlist)
+            .toEqual(expect.arrayContaining(testDeco03Classlist))
+    })
+
+    it('unregisters Decoration `testDeco03`', () => { decoManager.removeDecoration(testDeco03) })
+
+    it(`verify unregister Decoration worked as expected by checking the classnames`, () => {
+        const testDeco03Classlist = [...testDeco03.cssClasslist]
+        expect(decoManager.getDecorations(fileHandles['/statics/image.png']))
+            .not.toEqual(expect.arrayContaining(testDeco03Classlist))
+    })
 })
