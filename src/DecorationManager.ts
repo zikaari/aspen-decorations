@@ -44,7 +44,7 @@ export class DecorationsManager implements IDisposable {
 		})
 
 		this.disposables.add(root.onDidChangeParent(this.switchParent))
-		this.disposables.add(root.onDidDispose(this.decorationsMeta.delete))
+		this.disposables.add(root.onDidDispose(this.decorationsMeta.delete.bind(this.decorationsMeta)))
 	}
 
 	/**
