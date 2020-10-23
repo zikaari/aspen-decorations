@@ -1,6 +1,6 @@
 {
   "name": "aspen-decorations",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Complex styling for react-aspen w/ inheritance and negations",
   "main": "dist/index.js",
   "typings": "dist/typings/index.d.ts",
